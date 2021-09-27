@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "gMjATSzKurZuzNabKiMvpHst3uS9vcIWNNKTnkHK50kjAyZLT5/V/8S2BokdT1ynmB5T1R/ibBSwL79H73g6sw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\nicol\\source\\repos\\Desenvolvimento-DotNetCore-Avançado\\curso.api\\curso.api\\curso.api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nicol\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\nicol\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\nicol\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.2\\swashbuckle.aspnetcore.6.2.2.nupkg.sha512",
+    "C:\\Users\\nicol\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\6.2.2\\swashbuckle.aspnetcore.annotations.6.2.2.nupkg.sha512",
+    "C:\\Users\\nicol\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.2\\swashbuckle.aspnetcore.swagger.6.2.2.nupkg.sha512",
+    "C:\\Users\\nicol\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.2\\swashbuckle.aspnetcore.swaggergen.6.2.2.nupkg.sha512",
+    "C:\\Users\\nicol\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.2\\swashbuckle.aspnetcore.swaggerui.6.2.2.nupkg.sha512"
+  ],
+  "logs": []
+}
