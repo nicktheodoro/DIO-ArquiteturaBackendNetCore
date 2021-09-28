@@ -29,3 +29,10 @@ C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso
 C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\curso.api.xml
 C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\obj\Debug\net5.0\curso.api.csproj.AssemblyReference.cache
+C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\nicol\source\repos\Desenvolvimento-DotNetCore-Avançado\curso.api\curso.api\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
