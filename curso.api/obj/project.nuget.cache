@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NHy9Ti/TJWvGnNW+ceepO4YmM1DH7Z6Cl2cv7quUgV73Xzg5jmY6KJeY2TT4wnwRDdfl1mt5IHx+EfyUTEAATQ==",
+  "dgSpecHash": "RrEQ3vZW6SYN9D2vRUkxXkxQc0hk9AVHqj1B+m56+elS1Zm+NHqKCfcV1TDOSKeAq3h15EWhGZDUejsTkSxD7g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nicol\\source\\repos\\Desenvolvimento-DotNetCore-Avançado\\curso.api\\curso.api\\curso.api.csproj",
+  "projectFilePath": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicol\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\nicol\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",

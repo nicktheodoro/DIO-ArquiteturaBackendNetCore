@@ -1,15 +1,15 @@
 ﻿using curso.api.Business.Entities;
+using curso.api.Business.Repositories;
+using curso.api.Configurations;
 using curso.api.Filters;
-using curso.api.Infraestruture.Data;
 using curso.api.Models;
 using curso.api.Models.Usuarios;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -19,6 +19,16 @@ namespace curso.api.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IAuthenticationService _authenticationService;
+
+        public UsuarioController(IUsuarioRepository usuarioRepository,
+                                 IAuthenticationService authenticationService)
+        {
+            _usuarioRepository = usuarioRepository;
+            _authenticationService = authenticationService;
+        }
+
         [SwaggerResponse(statusCode: 200, description: "Sucesso ao autenticar", Type = typeof(LoginViewModelInput))]
         [SwaggerResponse(statusCode: 400, description: "Campos obrigatórios", Type = typeof(ValidaCampoViewModelOutput))]
         [SwaggerResponse(statusCode: 500, description: "Erro interno", Type = typeof(ErroGenericoViewModel))]
@@ -27,30 +37,27 @@ namespace curso.api.Controllers
         [ValidacaoModelStateCustomizado]
         public IActionResult Logar(LoginViewModelInput loginViewModelInput)
         {
+            var usuario = _usuarioRepository.Obter(loginViewModelInput.Login);
+            
+            if (usuario == null)
+            {
+                return BadRequest("Houve um erro ao tentar acessar");
+            }
+
+            // if (usuario.Senha != loginViewModelInput.Senha.GerarSenhaCriptografada())
+            // {
+            //     return BadRequest("Houve um erro ao tentar acessar");
+            // }
             // Simulação de Login no Banco.
             var usuarioViewModelOutput = new UsuarioViewModelOutput()
             {
-                Codigo = 1,
-                Login = "nicolastheodoro",
-                Email = "nicolastheodoro@gmail.com"
+                Codigo = usuario.Codigo,
+                Login = loginViewModelInput.Login,
+                Email = usuario.Email
             };
 
-            var secret = Encoding.ASCII.GetBytes("MzfsT&d9gprP>!9$Es(X!5g@;ef!5sbk:jH\\2.}8ZP'qY#7");
-            var symmetricSecurityKey = new SymmetricSecurityKey(secret);
-            var securityTokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, usuarioViewModelOutput.Codigo.ToString()),
-                    new Claim(ClaimTypes.Name, usuarioViewModelOutput.Login.ToString()),
-                    new Claim(ClaimTypes.Email, usuarioViewModelOutput.Email.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature)
-            };
-            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-            var tokenGenerated = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
-            var token = jwtSecurityTokenHandler.WriteToken(tokenGenerated);
+
+            var token = _authenticationService.GerarToken(usuarioViewModelOutput);
 
             return Ok(new
             {
@@ -66,23 +73,20 @@ namespace curso.api.Controllers
         [ValidacaoModelStateCustomizado]
         public IActionResult Registrar(RegistroViewModelInput registroViewModelInput)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<CursoDbContext>();
-            optionsBuilder.UseSqlServer("Server=localhost\\ADBIMER;Database=bd_curso_dio;user=sa;password=123456");
-            CursoDbContext contexto = new CursoDbContext(optionsBuilder.Options);
+            //var migracoesPendentes = contexto.Database.GetPendingMigrations();
 
-            var migracoesPendentes = contexto.Database.GetPendingMigrations();
-
-            if(migracoesPendentes.Count() > 0)
-            {
-                contexto.Database.Migrate();
-            }
+            //if (migracoesPendentes.Count() > 0)
+            //{
+            //    contexto.Database.Migrate();
+            //}
 
             var usuario = new Usuario();
             usuario.Login = registroViewModelInput.Login;
             usuario.Email = registroViewModelInput.Email;
             usuario.Senha = registroViewModelInput.Senha;
-            contexto.Usuario.Add(usuario);
-            contexto.SaveChanges();
+
+            _usuarioRepository.Adcionar(usuario);
+            _usuarioRepository.Commit();
 
             return Created("", registroViewModelInput);
         }

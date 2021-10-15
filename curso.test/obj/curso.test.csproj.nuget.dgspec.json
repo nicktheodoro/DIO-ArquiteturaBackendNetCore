@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj": {}
+    "C:\\Development\\dotnet-core5\\curso.api\\curso.test\\curso.test.csproj": {}
   },
   "projects": {
-    "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj": {
+    "C:\\Development\\dotnet-core5\\curso.api\\curso.test\\curso.test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
-        "projectName": "curso.api",
-        "projectPath": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
+        "projectUniqueName": "C:\\Development\\dotnet-core5\\curso.api\\curso.test\\curso.test.csproj",
+        "projectName": "curso.test",
+        "projectPath": "C:\\Development\\dotnet-core5\\curso.api\\curso.test\\curso.test.csproj",
         "packagesPath": "C:\\Users\\nicol\\.nuget\\packages\\",
-        "outputPath": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\obj\\",
+        "outputPath": "C:\\Development\\dotnet-core5\\curso.api\\curso.test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nicol\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,39 +38,25 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authentication": {
+            "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[2.2.0, )"
+              "version": "[16.9.4, )"
             },
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[5.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[5.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.Relational": {
-              "target": "Package",
-              "version": "[5.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[5.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
+            "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.10, )"
+              "version": "[3.0.2, )"
             },
-            "Swashbuckle.AspNetCore": {
+            "xunit": {
               "target": "Package",
-              "version": "[6.2.2, )"
+              "version": "[2.4.1, )"
             },
-            "Swashbuckle.AspNetCore.Annotations": {
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[6.2.2, )"
+              "version": "[2.4.3, )"
             }
           },
           "imports": [
@@ -84,9 +70,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

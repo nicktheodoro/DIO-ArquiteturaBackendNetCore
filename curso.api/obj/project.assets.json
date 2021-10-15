@@ -6227,21 +6227,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nicol\\source\\repos\\Desenvolvimento-DotNetCore-Avançado\\curso.api\\curso.api\\curso.api.csproj",
+      "projectUniqueName": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
       "projectName": "curso.api",
-      "projectPath": "C:\\Users\\nicol\\source\\repos\\Desenvolvimento-DotNetCore-Avançado\\curso.api\\curso.api\\curso.api.csproj",
+      "projectPath": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
       "packagesPath": "C:\\Users\\nicol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nicol\\source\\repos\\Desenvolvimento-DotNetCore-Avançado\\curso.api\\curso.api\\obj\\",
+      "outputPath": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nicol\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\nicol\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
