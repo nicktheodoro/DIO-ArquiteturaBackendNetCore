@@ -1,7 +1,9 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using curso.api.Business.Entities;
 using curso.api.Business.Repositories;
 using curso.api.Infraestruture.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace curso.api.Infraestruture.Repositories
 {
@@ -24,9 +26,9 @@ namespace curso.api.Infraestruture.Repositories
             _contexto.SaveChanges();
         }
 
-        public Usuario Obter(string login)
+        public async Task<Usuario> ObterAsync(string login)
         {
-            return _contexto.Usuario.FirstOrDefault(u => u.Login == login);
+            return await _contexto.Usuario.FirstOrDefaultAsync(u => u.Login == login);
         }
     }
 }

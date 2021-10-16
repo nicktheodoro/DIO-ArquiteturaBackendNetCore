@@ -12,6 +12,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace curso.api.Controllers
 {
@@ -35,10 +36,10 @@ namespace curso.api.Controllers
         [HttpPost]
         [Route("logar")]
         [ValidacaoModelStateCustomizado]
-        public IActionResult Logar(LoginViewModelInput loginViewModelInput)
+        public async Task<IActionResult> Logar(LoginViewModelInput loginViewModelInput)
         {
-            var usuario = _usuarioRepository.Obter(loginViewModelInput.Login);
-            
+            var usuario = await _usuarioRepository.ObterAsync(loginViewModelInput.Login);
+
             if (usuario == null)
             {
                 return BadRequest("Houve um erro ao tentar acessar");
@@ -56,14 +57,10 @@ namespace curso.api.Controllers
                 Email = usuario.Email
             };
 
+            usuarioViewModelOutput.Token = _authenticationService.GerarToken(usuarioViewModelOutput);
 
-            var token = _authenticationService.GerarToken(usuarioViewModelOutput);
 
-            return Ok(new
-            {
-                Token = token,
-                Usuario = usuarioViewModelOutput
-            });
+            return Ok(usuarioViewModelOutput);
         }
 
         [SwaggerResponse(statusCode: 201, description: "Registrado com sucesso.", Type = typeof(RegistroViewModelInput))]
