@@ -1,10 +1,13 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using AutoBogus;
 using curso.api;
 using curso.api.Models.Usuarios;
+using curso.test.Configurations;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using Xunit;
@@ -12,11 +15,13 @@ using Xunit.Abstractions;
 
 namespace curso.test.Integrations.Controllers
 {
-    public class UsuarioControllerTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class UsuarioControllerTests : IClassFixture<WebApplicationFactory<Startup>>, IAsyncLifetime
     {
         private readonly WebApplicationFactory<Startup> _factory;
-        private readonly ITestOutputHelper _output;
-        private readonly HttpClient _httpClient;
+        protected readonly ITestOutputHelper _output;
+        protected readonly HttpClient _httpClient;
+        protected RegistroViewModelInput RegistroViewModelInput;
+        protected UsuarioViewModelOutput UsuarioViewModelOutput;
 
         public UsuarioControllerTests(WebApplicationFactory<Startup> factory, ITestOutputHelper output)
         {
@@ -26,13 +31,35 @@ namespace curso.test.Integrations.Controllers
         }
 
         [Fact]
+        public async Task Registrar_InformandoUsuarioEsenha_DeveRetornarSucesso()
+        {
+            // Arrange
+            RegistroViewModelInput = new AutoFaker<RegistroViewModelInput>(AutoBogusConfiguration.LOCATE).RuleFor(p => p.Email,
+                                                                                     faker => faker.Person.Email.ToLower())
+                                                                            .RuleFor(p => p.Login,
+                                                                                     faker => faker.Person.UserName.ToLower());
+            
+            StringContent content = new StringContent(JsonConvert.SerializeObject(RegistroViewModelInput),
+                                                      Encoding.UTF8,
+                                                      "application/json");
+
+            // Act
+            var httpClientRequest = await _httpClient.PostAsync("api/v1/usuario/registrar", content);
+
+            // Assert
+            _output.WriteLine($"{nameof(UsuarioControllerTests)}_{nameof(Registrar_InformandoUsuarioEsenha_DeveRetornarSucesso)} = {await httpClientRequest.Content.ReadAsStringAsync()}");
+            Assert.Equal(HttpStatusCode.Created, httpClientRequest.StatusCode);
+        }
+
+
+        [Fact]
         public async Task Logar_InformandoUsuarioEsenhaExistentes_DeveRetornarSucesso()
         {
             // Arrange
             var loginViewModelInput = new LoginViewModelInput
             {
-                Login = "nicolas",
-                Senha = "123456"
+                Login = RegistroViewModelInput.Login,
+                Senha = RegistroViewModelInput.Senha
             };
 
             StringContent content = new StringContent(JsonConvert.SerializeObject(loginViewModelInput),
@@ -42,42 +69,24 @@ namespace curso.test.Integrations.Controllers
             // Act
             var httpClientRequest = await _httpClient.PostAsync("api/v1/usuario/logar", content);
 
-            var usuarioViewModelOutput = JsonConvert.DeserializeObject<UsuarioViewModelOutput>(await httpClientRequest.Content.ReadAsStringAsync());
-                                                                                                                        
+            UsuarioViewModelOutput = JsonConvert.DeserializeObject<UsuarioViewModelOutput>(await httpClientRequest.Content.ReadAsStringAsync());
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, httpClientRequest.StatusCode);
-            Assert.Equal(loginViewModelInput.Login, usuarioViewModelOutput.Login);
-            Assert.NotNull(usuarioViewModelOutput.Token);
-            _output.WriteLine(usuarioViewModelOutput.Token);
+            Assert.Equal(loginViewModelInput.Login, UsuarioViewModelOutput.Login);
+            Assert.NotNull(UsuarioViewModelOutput.Token);
+            _output.WriteLine($"{nameof(UsuarioControllerTests)}_{nameof(Logar_InformandoUsuarioEsenhaExistentes_DeveRetornarSucesso)} = {await httpClientRequest.Content.ReadAsStringAsync()}");
         }
 
-        [Fact]
-        public void Registrar_InformandoUsuarioEsenha_DeveRetornarSucesso()
+        public async Task InitializeAsync()
         {
-            // Arrange
-            var hash = DateTime.Now.Ticks;
+            await Registrar_InformandoUsuarioEsenha_DeveRetornarSucesso();
+            await Logar_InformandoUsuarioEsenhaExistentes_DeveRetornarSucesso();
+        }
 
-            var registroViewModelInput = new RegistroViewModelInput
-            {
-                Login = $"teste_{hash}",
-                Email = $"teste_{hash}@email.com.br",
-                Senha = "123456"
-            };
-
-            StringContent content = new StringContent(JsonConvert.SerializeObject(registroViewModelInput),
-                                                      Encoding.UTF8,
-                                                      "application/json");
-
-            // Act
-            var httpClientRequest = _httpClient.PostAsync("api/v1/usuario/registrar", content)
-                                               .GetAwaiter()
-                                               .GetResult();
-
-
-
-            // Assert
-            Assert.Equal(HttpStatusCode.Created, httpClientRequest.StatusCode);
+        public async Task DisposeAsync()
+        {
+            _httpClient.Dispose();
         }
     }
 }

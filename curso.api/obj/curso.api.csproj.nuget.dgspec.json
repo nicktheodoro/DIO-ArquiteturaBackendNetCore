@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj": {}
+    "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj": {}
   },
   "projects": {
-    "c:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj": {
+    "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
+        "projectUniqueName": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
         "projectName": "curso.api",
-        "projectPath": "c:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
+        "projectPath": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\curso.api.csproj",
         "packagesPath": "C:\\Users\\nicol\\.nuget\\packages\\",
-        "outputPath": "c:\\Development\\dotnet-core5\\curso.api\\curso.api\\obj\\",
+        "outputPath": "C:\\Development\\dotnet-core5\\curso.api\\curso.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nicol\\AppData\\Roaming\\NuGet\\NuGet.Config"

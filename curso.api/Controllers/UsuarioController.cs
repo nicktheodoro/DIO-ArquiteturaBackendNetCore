@@ -68,7 +68,7 @@ namespace curso.api.Controllers
         [SwaggerResponse(statusCode: 500, description: "Erro interno no servidor.", Type = typeof(ErroGenericoViewModel))]
         [HttpPost("registrar")]
         [ValidacaoModelStateCustomizado]
-        public IActionResult Registrar(RegistroViewModelInput registroViewModelInput)
+        public async Task<IActionResult> Registrar(RegistroViewModelInput registroViewModelInput)
         {
             //var migracoesPendentes = contexto.Database.GetPendingMigrations();
 
@@ -77,7 +77,14 @@ namespace curso.api.Controllers
             //    contexto.Database.Migrate();
             //}
 
-            var usuario = new Usuario();
+            var usuario = await _usuarioRepository.ObterAsync(registroViewModelInput.Login);
+
+            if(usuario != null)
+            {
+                return BadRequest("Usuário já cadastrado");
+            }
+
+            usuario = new Usuario();
             usuario.Login = registroViewModelInput.Login;
             usuario.Email = registroViewModelInput.Email;
             usuario.Senha = registroViewModelInput.Senha;

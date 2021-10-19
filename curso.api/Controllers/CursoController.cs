@@ -4,7 +4,6 @@ using curso.api.Models.Cursos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -30,16 +29,23 @@ namespace curso.api.Controllers
         [Route("")]
         public async Task<IActionResult> Post(CursoViewModelInput cursoViewModelInput)
         {
-            Curso curso = new Curso();
-            curso.Nome = cursoViewModelInput.Nome;
-            curso.Descricao = cursoViewModelInput.Descricao;
+            Curso curso = new Curso(){
+                Nome = cursoViewModelInput.Nome,
+                Descricao = cursoViewModelInput.Descricao
+            };
+
             var CodigoUsuario = int.Parse(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
             curso.CodigoUsuario = CodigoUsuario;
 
             _cursoRepository.Adicionar(curso);
             _cursoRepository.Commit();
+
+            var cursoViewModelOutput = new CursoViewModelOutput{
+                Nome = curso.Nome,
+                Descricao = curso.Descricao,
+            };
            
-            return Created("", cursoViewModelInput);
+            return Created("", cursoViewModelOutput);
         }
 
         [SwaggerResponse(statusCode: 200, description: "Sucesso ao obter os cursos.")]
